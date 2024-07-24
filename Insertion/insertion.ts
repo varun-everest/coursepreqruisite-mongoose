@@ -33,6 +33,9 @@ export const insertData = async(data: any[]) => {
                 const pre =await courseModel.findOne({ name:ele.prerequisite });
                 if(pre){
                     newCourse.prerequisite.push(pre._id);
+                    pre.prerequisite.forEach(val => {
+                        newCourse.prerequisite.push(val);
+                    });
                 }
             await newCourse.save();
          }
