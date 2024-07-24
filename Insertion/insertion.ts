@@ -16,13 +16,6 @@ export const readCSV = <T>(filePath: string): Promise<T[]> => {
     });
 };
 
-export const insertCourses = async(data: any[]) => {
-    
-    const courses: any[] = await courseModel.find();
-    console.log(courses)
-    await courseModel.insertMany(data);
-}
-
 export const insertData = async(data: any[]) => { 
     await courseModel.deleteMany();
    for(let ele of data){
