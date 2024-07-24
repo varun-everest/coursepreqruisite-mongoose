@@ -1,9 +1,12 @@
 import { currentInstance } from './connection';
-import { courseModel } from './Collections/courseprereq';
-
+import { readCSV, insertData } from './Insertion/insertion';
 
 currentInstance;
 
-
-courseModel;
-
+const readCSVDataAndInsert = async() => {
+    const filePath = './Data/data.csv'
+    const readData = await readCSV(filePath);
+    console.log(readData);
+    insertData(readData);
+};
+readCSVDataAndInsert();

@@ -6,11 +6,11 @@ const courseSchema = new Schema ({
     courseLevel : {
         type: String,
         enum: Object.values(CourseLevel),
-        required: true
+        //require: true
     },
     name : {
         type : String,
-        unique : true
+        unique : true,
     },
     prerequisite : [{
         type : Schema.Types.ObjectId,

@@ -15,4 +15,10 @@ const allCourses = {
     [CourseLevel.PG] : ['Arts']
 }
 
-export {CourseLevel, allCourses};
+type Course = {
+    courseLevel : String;
+    name : String;
+    prerequisite :  Schema.Types.ObjectId;
+}
+
+export {CourseLevel, allCourses, Course};
