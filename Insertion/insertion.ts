@@ -1,6 +1,7 @@
 import csvParser  from 'csv-parser';
 import fs, { read } from 'fs';
 import { courseModel } from '../Collections/courseprereq';
+import { Course } from '../MyTypes/type';
 
 courseModel;  //creating the course model
 
@@ -15,6 +16,29 @@ export const readCSV = <T>(filePath: string): Promise<T[]> => {
     });
 };
 
-export const insertData = (data: any[]) => {
+export const insertCourses = async(data: any[]) => {
     
+    const courses: any[] = await courseModel.find();
+    console.log(courses)
+    await courseModel.insertMany(data);
+}
+
+export const insertData = async(data: any[]) => { 
+    await courseModel.deleteMany();
+   for(let ele of data){
+        const courseExists = await courseModel.findOne({name : ele.name});
+        if(!courseExists) {
+            const newCourse = await courseModel.create({ courseLevel: ele.courseLevel, name : ele.name });
+            if(ele.prerequisite) {
+                const pre =await courseModel.findOne({ name:ele.prerequisite });
+                if(pre){
+                    newCourse.prerequisite.push(pre._id);
+                }
+            await newCourse.save();
+         }
+        }
+    }
+   console.log("Inserted");
+   const dat: any[] = await courseModel.find();
+   console.log(dat);
 }
